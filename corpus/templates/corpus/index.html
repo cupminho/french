@@ -36,6 +36,7 @@
                     <tr>
                         <th>순번</th>
                         <th>파일명</th>
+                        <th>처리현황</th>
                         <th>상세보기</th>
                     </tr>
                     </thead>
@@ -44,6 +45,16 @@
                     <tr>
                         <td>{{ file.id }}</td>
                         <td>{{ file.file_name }}</td>
+                        <td>
+                                <div class="col-6 col-12-small">
+                                    <input id="tagging-radio-{{ file.id }}-1" name="tagging-radio-{{ file.id }}" type="radio" value="1" checked>
+                                    <label for="tagging-radio-{{ file.id }}-1">진행</label>
+                                    <input id="tagging-radio-{{ file.id }}-2" name="tagging-radio-{{ file.id }}" type="radio" value="2">
+                                    <label for="tagging-radio-{{ file.id }}-2">완료</label>
+                                    <input id="tagging-radio-{{ file.id }}-3" name="tagging-radio-{{ file.id }}" type="radio" value="3">
+                                    <label for="tagging-radio-{{ file.id }}-3">보류</label>
+                                </div>
+                            </td>
                         <td><a href="/corpus/{{ file.id }}/" class="button primary fit small">상세보기</a></td>
                     </tr>
                     {% endfor %}
