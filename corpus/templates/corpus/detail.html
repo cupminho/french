@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="ko">
+<head>
+    <title>상세보기</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}"/>
+    <noscript>
+        <link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}"/>
+    </noscript>
+</head>
+<body class="is-preload">
+
+<!-- Header -->
+<header id="header">
+    <a href="{% url 'home' %}" class="title">부산대학교 불어불문학과 이은령</a>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">시작화면</a></li>
+            <li><a href="{% url 'corpus:index' %}">분석하기</a></li>
+            <li><a href="#"  class="active">상세화면</a></li>
+        </ul>
+    </nav>
+</header>
+<div id="wrapper">
+    <section id="main" class="wrapper">
+        <div class="inner">
+            <h1 class="major">파일명 - {{ file.file_name }}</h1>
+            {% if file.sentence_set.all %}
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>순번</th>
+                        <th>문장</th>
+                        <th>상태</th>
+                        <th>상세보기</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for sentence in file.sentence_set.all %}
+                        <tr>
+                            <td>{{ sentence.id }}</td>
+                            <td>{{ sentence.sentence_text }}</td>
+                            <td>
+                                <div class="col-6 col-12-small">
+                                    <input id="tagging-radio-{{ sentence.id }}-1" name="tagging-radio-{{ sentence.id }}" type="radio" value="1" checked>
+                                    <label for="tagging-radio-{{ sentence.id }}-1">진행</label>
+                                    <input id="tagging-radio-{{ sentence.id }}-2" name="tagging-radio-{{ sentence.id }}" type="radio" value="2">
+                                    <label for="tagging-radio-{{ sentence.id }}-2">완료</label>
+                                    <input id="tagging-radio-{{ sentence.id }}-3" name="tagging-radio-{{ sentence.id }}" type="radio" value="3">
+                                    <label for="tagging-radio-{{ sentence.id }}-3">보류</label>
+                                </div>
+                            </td>
+                            <td><a href="/corpus/{{ sentence.id }}/tagging" class="button primary fit small">상세보기</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p>
+                형태 분석이 완료되지 않은 파일입니다. <br>
+                형태 분석을 시작하려면 아래 확인 버튼을 눌러주세요.
+            </p>
+            <a href="/corpus/{{ file.id }}/analysis" class="button fit big">확인</a>
+            {% endif %}
+        </div>
+    </section>
+
+
+</div>
+<!-- Footer -->
+<footer id="footer" class="wrapper alt">
+    <div class="inner">
+        <ul class="menu">
+            <li>&copy; 부산대학교 불어불문학과 이은령</li>
+        </ul>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+<script src="{% static 'assets/js/browser.min.js' %}"></script>
+<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+<script src="{% static 'assets/js/util.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+</html>

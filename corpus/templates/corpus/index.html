@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="ko">
+<head>
+    <title>분석하기</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}"/>
+    <noscript>
+        <link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}"/>
+    </noscript>
+</head>
+<body class="is-preload">
+
+<!-- Header -->
+<header id="header">
+    <a href="{% url 'home' %}" class="title">부산대학교 불어불문학과 이은령</a>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">시작화면</a></li>
+            <li><a href="#" class="active">분석하기</a></li>
+            <li><a href="#">상세화면</a></li>
+        </ul>
+    </nav>
+</header>
+<div id="wrapper">
+    <section id="main" class="wrapper">
+        <div class="inner">
+            <h1 class="major">파일 추가 (미구현)</h1>
+            <h1 class="major">파일 목록</h1>
+            {% if file_list %}
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>순번</th>
+                        <th>파일명</th>
+                        <th>상세보기</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for file in file_list %}
+                    <tr>
+                        <td>{{ file.id }}</td>
+                        <td>{{ file.file_name }}</td>
+                        <td><a href="/corpus/{{ file.id }}/" class="button primary fit small">상세보기</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p>파일을 추가하세요.</p>
+            {% endif %}
+        </div>
+    </section>
+
+
+</div>
+<!-- Footer -->
+<footer id="footer" class="wrapper alt">
+    <div class="inner">
+        <ul class="menu">
+            <li>&copy; 부산대학교 불어불문학과 이은령</li>
+        </ul>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+<script src="{% static 'assets/js/browser.min.js' %}"></script>
+<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+<script src="{% static 'assets/js/util.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+</html>
