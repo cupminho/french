@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
-from corpus.models import File, Sentence
+from corpus.models import File, Sentence, Tagging
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
@@ -20,6 +20,7 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return File.objects.order_by('id')
 
+
 class DetailView(generic.DetailView):
     model = File
     template_name = 'corpus/detail.html'
@@ -28,6 +29,14 @@ class DetailView(generic.DetailView):
 class TaggingView(generic.DetailView):
     model = Sentence
     template_name = 'corpus/tagging.html'
+
+def update(request, id):
+    tagging = Tagging.objects.get(id)
+    tagging.word = request.POST.get('word')
+    tagging.pos = request.POST.get('pos')
+    tagging.save()
+    return HttpResponseRedirect(reverse('corpus:tagging', args=(tagging.sentence)))
+
 
 def upload(request):
     if request.method == 'POST':
